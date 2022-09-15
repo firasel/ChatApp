@@ -34,7 +34,7 @@ export const conversationsApi = apiSlice.injectEndpoints({
           socket.on("conversation", (data) => {
             updateCachedData((draft) => {
               const conversation = draft.data.find(
-                (c) => c.id == data?.data?.id
+                (c) => Number(c.id) === Number(data?.data?.id)
               );
 
               if (conversation?.id) {
@@ -130,7 +130,7 @@ export const conversationsApi = apiSlice.injectEndpoints({
             "getConversations",
             arg.sender,
             (draft) => {
-              const draftConversation = draft.data.find((c) => c.id == arg.id);
+              const draftConversation = draft.data.find((c) => Number(c.id) === Number(arg.id));
               draftConversation.message = arg.data.message;
               draftConversation.timestamp = arg.data.timestamp;
             }
