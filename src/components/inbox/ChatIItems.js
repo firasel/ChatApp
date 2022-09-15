@@ -72,7 +72,10 @@ export default function ChatItems() {
                 loader={<LoadingSpinner />}
                 height={window.innerHeight - 129}
             >
-                {conversations.map((conversation) => {
+                {conversations
+                .slice()
+                .sort((a, b) => a.timestamp - b.timestamp)
+                .map((conversation) => {
                     const { id, message, timestamp } = conversation;
                     const { email } = user || {};
                     const { name, email: partnerEmail } = getPartnerInfo(
