@@ -40,7 +40,10 @@ export const conversationsApi = apiSlice.injectEndpoints({
               if (conversation?.id) {
                 conversation.message = data?.data?.message;
                 conversation.timestamp = data?.data?.timestamp;
-              } else {
+              } else if (
+                data?.data?.users?.findIndex((user) => user.email === arg) !==
+                -1
+              ) {
                 draft.data.unshift(data.data);
               }
             });
