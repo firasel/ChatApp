@@ -95,7 +95,13 @@ export const conversationsApi = apiSlice.injectEndpoints({
               "getConversations",
               arg.sender,
               (draft) => {
-                draft.data.unshift(conversation.data);
+                if (
+                  draft.data.findIndex(
+                    (prev) => prev.id === conversation.data.id
+                  ) === -1
+                ) {
+                  draft.data.unshift(conversation.data);
+                }
               }
             )
           );
@@ -130,7 +136,9 @@ export const conversationsApi = apiSlice.injectEndpoints({
             "getConversations",
             arg.sender,
             (draft) => {
-              const draftConversation = draft.data.find((c) => Number(c.id) === Number(arg.id));
+              const draftConversation = draft.data.find(
+                (c) => Number(c.id) === Number(arg.id)
+              );
               draftConversation.message = arg.data.message;
               draftConversation.timestamp = arg.data.timestamp;
             }
