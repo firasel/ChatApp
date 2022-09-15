@@ -74,7 +74,7 @@ export default function ChatItems() {
             >
                 {conversations
                 .slice()
-                .sort((a, b) => a.timestamp - b.timestamp)
+                .sort((a, b) => b.timestamp - a.timestamp)
                 .map((conversation) => {
                     const { id, message, timestamp } = conversation;
                     const { email } = user || {};
