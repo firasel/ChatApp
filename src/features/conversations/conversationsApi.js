@@ -8,7 +8,7 @@ export const conversationsApi = apiSlice.injectEndpoints({
       query: (email) =>
         `/conversations?participants_like=${email}&_sort=timestamp&_order=desc&_page=1&_limit=${process.env.REACT_APP_CONVERSATIONS_PER_PAGE}`,
       transformResponse(apiResponse, meta) {
-        const totalCount = meta.response.headers.get("X-Total-Count");
+        const totalCount = meta?.response?.headers?.get("X-Total-Count");
         return {
           data: apiResponse,
           totalCount,
