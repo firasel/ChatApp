@@ -36,7 +36,6 @@ export const messagesApi = apiSlice.injectEndpoints({
                 data.data.id &&
                 draft.data.findIndex((prev) => prev.id === data.data.id) === -1
               ) {
-                console.log("Run 2");
                 draft.data.unshift(data?.data);
               }
             });
