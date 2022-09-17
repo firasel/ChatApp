@@ -41,7 +41,7 @@ export const conversationsApi = apiSlice.injectEndpoints({
                 conversation.message = data?.data?.message;
                 conversation.timestamp = data?.data?.timestamp;
               } else if (
-                data?.data?.users?.findIndex((user) => user.email === arg) !==
+                data?.data?.users?.findIndex((user) => user.email == arg) !==
                 -1
               ) {
                 draft.data.unshift(data.data);
@@ -100,7 +100,7 @@ export const conversationsApi = apiSlice.injectEndpoints({
               (draft) => {
                 if (
                   draft.data.findIndex(
-                    (prev) => prev.id === conversation.data.id
+                    (prev) => prev.id == conversation.data.id
                   ) === -1
                 ) {
                   draft.data.unshift(conversation.data);
@@ -111,8 +111,8 @@ export const conversationsApi = apiSlice.injectEndpoints({
 
           // silent entry to message table
           const users = arg.data.users;
-          const senderUser = users.find((user) => user.email === arg.sender);
-          const receiverUser = users.find((user) => user.email !== arg.sender);
+          const senderUser = users.find((user) => user.email == arg.sender);
+          const receiverUser = users.find((user) => user.email != arg.sender);
 
           dispatch(
             messagesApi.endpoints.addMessage.initiate({
@@ -176,7 +176,7 @@ export const conversationsApi = apiSlice.injectEndpoints({
                 res.conversationId.toString(),
                 (draft) => {
                   if (
-                    draft.data.findIndex((prev) => prev.id === res.id) === -1
+                    draft.data.findIndex((prev) => prev.id == res.id) === -1
                   ) {
                     draft.data.unshift(res);
                   }
