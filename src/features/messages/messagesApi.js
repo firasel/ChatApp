@@ -31,14 +31,18 @@ export const messagesApi = apiSlice.injectEndpoints({
         try {
           await cacheDataLoaded;
           socket.on("messages", (data) => {
-            updateCachedData((draft) => {
-              if (
-                data.data.id &&
-                draft.data.findIndex((prev) => prev.id == data.data.id) === -1
-              ) {
-                draft.data.unshift(data?.data);
-              }
-            });
+            if (Number(arg) === Number(data?.data?.conversationId)) {
+              updateCachedData((draft) => {
+                if (
+                  data.data.id &&
+                  draft.data.findIndex(
+                    (prev) => Number(prev.id) === Number(data.data.id)
+                  ) === -1
+                ) {
+                  draft.data.unshift(data?.data);
+                }
+              });
+            }
           });
         } catch (err) {}
 
@@ -59,7 +63,9 @@ export const messagesApi = apiSlice.injectEndpoints({
                 // Duplicate value filter
                 const filteredData = messages.data.filter(
                   (value) =>
-                    draft.data.findIndex((prev) => prev.id == value.id) === -1
+                    draft.data.findIndex(
+                      (prev) => Number(prev.id) === Number(value.id)
+                    ) === -1
                 );
 
                 return {
