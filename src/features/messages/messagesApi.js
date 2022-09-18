@@ -32,7 +32,6 @@ export const messagesApi = apiSlice.injectEndpoints({
           await cacheDataLoaded;
           socket.on("messages", (data) => {
             updateCachedData((draft) => {
-              console.log("Sc: ", data.data);
               if (
                 data.data.id &&
                 draft.data.findIndex((prev) => prev.id == data.data.id) === -1
